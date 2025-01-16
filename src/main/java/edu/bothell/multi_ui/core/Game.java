@@ -2,14 +2,15 @@ package edu.bothell.multi_ui.core;
 
 import java.util.ArrayList;
 
-
+//s:as a result of code, this has become literally just tictactoe
 public class Game {
-    private final int                  MAX_PLAYERS = 3;
+    private final int                  MAX_PLAYERS = 2;
     private final ArrayList<Player>    p;
     private final State                s;
     private int                        turn;
     private Player                     active;
-
+    private int row_counter = 0;
+    private boolean game_ending = false;
     public Game(Control c){
         this.turn = 0;
         this.s = new World();
@@ -44,13 +45,51 @@ public class Game {
 
     public char play(int[] pos, String sId){
         if(!isValid(pos, sId)) return ' ';
+        while(!game_ending){
         turn++;
         this.s.setIt(active.getChar(), pos[0], pos[1]);
+        
+        //s:new tic-tac-toe stuff
+        game_ending = check_horiz();
+        if(!game_ending){game_ending = check_vert();}
+        if(!game_ending){game_ending = check_lr_diag();}
         this.active = p.get( turn % p.size() );
-
         return active.getChar();
+        }
+       
+        return ' ';
+        
     }
-
+    private boolean check_horiz(){
+    for(var i = 0; i < s.S.length;i++){
+        for(var k = 0; k < s.S.length;k++){
+                        
+            if(s.S[i][k] == active.getChar()){System.out.println("Active char at " + i + " " + k); row_counter +=1;} else{row_counter = 0;};
+            if(row_counter == 3){System.out.println("win for active horizontal"); return true;}
+            }
+        row_counter = 0;
+            
+    }
+    return false;
+}
+private boolean check_vert(){
+    for(var i = 0; i < s.S.length;i++){
+        for(var k = 0; k < s.S.length;k++){
+                        
+            if(s.S[k][i] == active.getChar()){System.out.println("Active char at " + i + " " + k); row_counter +=1;} else{row_counter = 0;};
+            if(row_counter == 3){System.out.println("win for active vertical"); return true;}
+            }
+        row_counter = 0;
+            
+    }
+    return false;
+}
+private boolean check_lr_diag(){
+    for(var i = 0; i < s.S.length;i++){
+        if(s.S[i][i] == active.getChar()){row_counter++;};if(row_counter == 3){System.out.println("diag win active");return true;};
+    }
+    return false;
+}
     public Player getActive() {
         return this.active;
     }
@@ -81,3 +120,4 @@ public class Game {
 
 
 }
+ 

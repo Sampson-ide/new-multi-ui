@@ -20,7 +20,7 @@ public enum Terrain {
     private char symbol;
 
     private static final int[][] adjacencyPreferences = {
-    // PLAIN, DESERT, HILLS, TREES, FOREST, MNTAIN, CAVE, CITY, SWAMP, WATER, BRICK
+    // PLAIN, DESERT, HILLS, TREES, FOREST, MOUNTAIN, CAVE, CITY, SWAMP, WATER, BRICK
         {800,   2,    200,  200,    200,    100,    0,      1, 2, 40, 0}, // PLAIN
         {100,   3,    2,    1,      1,      1,      0,      1, 2, 40, 0}, // DESERT
         {200,   2,    300,  400,    1,      300,    1,      1, 2, 40, 0}, // HILLS

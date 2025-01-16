@@ -3,7 +3,10 @@ package edu.bothell.multi_ui.core;
 import java.util.Arrays;
 
 public class State implements Statable<int[]> {
-    public final char[][]   S = new char[32][48];
+    //s:btw this program is a fork, all comments with s: means they are new
+    //s:IDK why the hell this happens, but whenever I move the size of S on the x or y to below 11, it doesn't run correctly. FIGURE THIS OUT!!!!
+    //s:must get it down to 3 by 3 for tic tac toe
+    public final char[][]   S = new char[3][3];
     /*[][]//[64][96];
     {
         {' ',' ',' ',' ',' ',' '},
