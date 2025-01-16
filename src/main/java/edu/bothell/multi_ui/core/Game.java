@@ -53,6 +53,7 @@ public class Game {
         game_ending = check_horiz();
         if(!game_ending){game_ending = check_vert();}
         if(!game_ending){game_ending = check_lr_diag();}
+        if(!game_ending){game_ending = check_rl_diag();}
         this.active = p.get( turn % p.size() );
         return active.getChar();
         }
@@ -60,6 +61,8 @@ public class Game {
         return ' ';
         
     }
+
+    //s:The following are win checks -----------------------------------------------------------
     private boolean check_horiz(){
     for(var i = 0; i < s.S.length;i++){
         for(var k = 0; k < s.S.length;k++){
@@ -69,27 +72,39 @@ public class Game {
             }
         row_counter = 0;
             
-    }
+        }
     return false;
-}
-private boolean check_vert(){
-    for(var i = 0; i < s.S.length;i++){
-        for(var k = 0; k < s.S.length;k++){
+    }
+
+    private boolean check_vert(){
+        for(var i = 0; i < s.S.length;i++){
+            for(var k = 0; k < s.S.length;k++){
                         
-            if(s.S[k][i] == active.getChar()){System.out.println("Active char at " + i + " " + k); row_counter +=1;} else{row_counter = 0;};
-            if(row_counter == 3){System.out.println("win for active vertical"); return true;}
-            }
-        row_counter = 0;
+                if(s.S[k][i] == active.getChar()){System.out.println("Active char at " + i + " " + k); row_counter +=1;} else{row_counter = 0;};
+                if(row_counter == 3){System.out.println("win for active vertical"); return true;}
+                }
+            row_counter = 0;
             
+        }
+        return false;
     }
-    return false;
-}
-private boolean check_lr_diag(){
-    for(var i = 0; i < s.S.length;i++){
-        if(s.S[i][i] == active.getChar()){row_counter++;};if(row_counter == 3){System.out.println("diag win active");return true;};
+
+    private boolean check_lr_diag(){
+        for(var i = 0; i < s.S.length;i++){
+            if(s.S[i][i] == active.getChar()){row_counter++;};if(row_counter == 3){System.out.println("diag win active");return true;};
+        }
+        row_counter = 0;
+        return false;
     }
+
+    private boolean check_rl_diag(){
+        for(var i = 2; i < 0;i++){
+            if(s.S[i][2 - i] == active.getChar()){row_counter++;};if(row_counter == 3){System.out.println("diag win rl active");return true;}
+        }
+        row_counter = 0;
     return false;
-}
+    }
+    //s: ---------------------------------------------------------------
     public Player getActive() {
         return this.active;
     }
